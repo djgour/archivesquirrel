@@ -37,7 +37,6 @@ gem 'spring',        group: :development
 gem 'bcrypt', '~> 3.1.7'
 
 group :test, :development do
-  gem "test-unit"
   gem "minitest"
   gem "rspec-rails", "2.13.1"
 end
