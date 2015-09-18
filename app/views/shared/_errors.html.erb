@@ -1,0 +1,12 @@
+<% if object.errors.any? %>
+  <section id = "errors">
+    <h2>
+      The <%= object.class.name.titleize.downcase %> could not be saved because of the following errors:
+    </h2>
+    <ul>
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

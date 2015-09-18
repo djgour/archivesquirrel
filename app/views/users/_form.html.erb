@@ -1,0 +1,39 @@
+<%= form_for @user do |f| %>
+  <%= render "shared/errors", object: @user %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= f.label "Username (login)" %><br/>
+        <%= f.text_field :login, size: 40, autofocus: true %>
+      </li>
+      <li>
+        <%= f.label "E-mail" %><br/>
+        <%= f.email_field :email, size: 40 %>
+      </li>
+      <li>
+        <%= f.label "Password" %><br/>
+        <%= f.password_field :password, size: 40 %>
+      </li>
+      <li>
+        <%= f.label "Confirm password" %></li>
+        <%= f.password_field :password_confirmation, size: 40 %>
+      </li>
+      <h4>Optional</h4>
+      <li>
+        <%= f.label :name %><br/>
+        <%= f.text_field :name, size: 40 %>
+      </li>
+      <li>
+        <%= f.label "Bio" %><br/>
+        <%= f.text_area :description, cols: 40, rows: 7 %>
+      </li>
+    </ol>
+    <p>
+      <% if @user.new_record? %>
+        <%= f.submit 'Create Account' %>
+      <% else %>
+        <%= f.submit 'Save Changes' %>
+      <% end %>
+    </p>
+  </fieldset>
+<% end %>
