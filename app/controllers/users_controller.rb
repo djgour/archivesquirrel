@@ -21,10 +21,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(update_user_params)
+      redirect_to @user, notice: "Changes saved."
+    else
+      render :new
+    end
+
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:name, :login, :email, :password, :password_confirmation, :description)
+  end
+
+  def update_user_params
+    #doesn't let the user change their username
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :description)
   end
 
 end

@@ -2,10 +2,12 @@
   <%= render "shared/errors", object: @user %>
   <fieldset>
     <ol>
-      <li>
-        <%= f.label "Username (login)" %><br/>
-        <%= f.text_field :login, size: 40, autofocus: true %>
-      </li>
+      <% if @user.new_record? %>
+        <li>
+          <%= f.label "Username (login)" %><br/>
+          <%= f.text_field :login, size: 40, autofocus: true %>
+        </li>
+      <% end %>
       <li>
         <%= f.label "E-mail" %><br/>
         <%= f.email_field :email, size: 40 %>
@@ -32,7 +34,7 @@
       <% if @user.new_record? %>
         <%= f.submit 'Create Account' %>
       <% else %>
-        <%= f.submit 'Save Changes' %>
+        <%= f.submit 'Save Changes' %> | <%= link_to 'Cancel', @user %>
       <% end %>
     </p>
   </fieldset>
