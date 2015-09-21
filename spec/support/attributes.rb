@@ -18,3 +18,10 @@ def user_attributes(overrides = {})
     admin: false
   }.merge(overrides)
 end
+
+def project_attributes(overrides = {})
+  {
+    name: "Example Project",
+    description: "An example project created in ArchiveSquirrel"
+  }
+end

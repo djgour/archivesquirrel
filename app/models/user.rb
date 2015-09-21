@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true,
                     format: /\A\S+@\S+\z/,
                     uniqueness: { case_sensitive: false }
+
+  has_many :projects
 end

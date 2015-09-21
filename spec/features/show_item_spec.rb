@@ -2,8 +2,13 @@ require 'spec_helper'
 
 describe "Viewing an item" do
 
+  before do
+    @user = User.create!(user_attributes)
+    @project = @user.projects.create!(project_attributes)
+  end
+
   it "should show the item's name, level and description" do
-    item = Item.create!(item_attributes)
+    item = @project.items.create!(item_attributes)
 
     visit item_url(item)
 
