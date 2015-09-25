@@ -1,0 +1,20 @@
+<h1>Log In</h1>
+
+<%= form_tag login_path do %>
+  <fieldset>
+    <ol>
+      <li>
+        <%= label_tag :login_or_email %>
+        <%= text_field_tag :login_or_email, nil %>
+      </li>
+      <li>
+        <%= label_tag :password %>
+        <%= password_field_tag :password, nil %>
+      </li>
+    </ol>
+    <p>
+      <%= submit_tag 'Log In' %>
+    </p>
+  </fieldset>
+<% end %>
+<p>No account yet? <%= link_to 'Register', register_path %> now!</p>

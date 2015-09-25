@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Creating a new user" do
 
-it "saves a valid user and shows their profile page" do
+it "saves a valid user, signs them in and shows their profile page" do
 
   visit register_path
 
@@ -17,6 +17,8 @@ it "saves a valid user and shows their profile page" do
 
   expect(page).to have_text("successfully created")
   expect(page).to have_text("Example User")
+  expect(page).not_to have_text("Register")
+  expect(page).not_to have_text("Log In")
 end
 
 it "doesn't save the user if it's invalid" do

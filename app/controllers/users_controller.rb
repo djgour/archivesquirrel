@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       redirect_to @user, notice: "Account successfully created!"
     else
       render :new
@@ -32,7 +33,10 @@ class UsersController < ApplicationController
     else
       render :new
     end
+  end
 
+  def destroy
+    #remember to automatically sign a user out when implementing this
   end
 
   private

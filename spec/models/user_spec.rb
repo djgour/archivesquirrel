@@ -32,7 +32,7 @@ describe "a user" do
     end
   end
 
-  it "requires a unique (case-insensitve) email address" do
+  it "requires a unique (case-insensitive) email address" do
     user1 = User.create!(user_attributes)
 
     user2 = User.new(email: user1.email.upcase)
@@ -46,6 +46,15 @@ describe "a user" do
     user2 = User.new(login: user1.login.upcase)
     user2.valid?
     expect(user2.errors[:login].first).to eq("has already been taken")
+  end
+
+  it "doesn't permit usernames with invalid characters" do
+    logins = %w[joe@example joe-example 5joe _joe]
+    logins.each do |login|
+      user = User.new(user_attributes(login: login))
+      user.valid?
+      expect(user.errors[:login].any?).to eq(true)
+    end
   end
 
   it "is valid with the example attributes" do
