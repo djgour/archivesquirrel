@@ -11,7 +11,9 @@ class SessionsController < ApplicationController
             end
     if user && user.authenticate(params[:password])
       log_in user
-      redirect_to user, notice: "You have successfully logged in!"
+      flash[:notice] = "You have successfully logged in!"
+      redirect_to(session[:intended_url] || user)
+      session[:intended_url] = nil
     else
       flash.now[:alert] = "Invalid email/password combination."
       render :new

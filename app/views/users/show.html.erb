@@ -1,4 +1,6 @@
 <h1><%= name_and_or_login_for(@user) %></h1>
 <%= mail_to @user.email %>
 <p><%= @user.description %></p>
-<%= link_to 'Edit Profile', edit_user_path(@user) %>
+<% if current_user? @user %>
+  <%= link_to 'Edit Profile', edit_user_path(@user) %>
+<% end %>

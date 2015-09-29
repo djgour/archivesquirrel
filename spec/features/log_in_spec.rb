@@ -39,4 +39,18 @@ describe 'Signing in' do
     expect(page).to have_text("Invalid")
     expect(current_path).to eq(login_path)
   end
+
+  it "takes a user to the link they wanted before they logged in" do
+    user2 = User.create!(user_attributes(login: "user2", email: "user2@example.com",
+                                         description: "This is the second example user."))
+
+    visit user_url(user2)
+    expect(page).to have_text("Log In")
+    fill_in "login_or_email", with: @user.login
+    fill_in "password", with: @user.password
+    click_button "Log In"
+    expect(page).to have_link(user2.email)
+    expect(page).to have_text(user2.description)
+
+  end
 end
