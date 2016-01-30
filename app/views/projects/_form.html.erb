@@ -1,0 +1,27 @@
+<%= form_for @project do |f| %>
+  <%= render 'shared/errors', object: @project %>
+  <fieldset>
+    <ol>
+      <% if @project.new_record? %>
+        <li>
+          <%= f.label "Project Name" %><br/>
+          <%= f.text_field :name, size: 40, autofocus: true %>
+        </li>
+      <% end %>
+      <li>
+        <%= f.label "Description" %><br/>
+        <%= f.text_area :description, cols: 40, rows: 7 %>
+      </li>
+    </ol>
+    <p>
+      This is where the "Invite participants" section will go.
+    </p>
+    <p>
+      <% if @project.new_record? %>
+        <%= f.submit "Create Project" %>
+      <% else %>
+        <%= f.submit 'Save Changes' %> | <%= link_to 'Cancel', @project %>
+      <% end %>
+    </p>
+  </fieldset>
+<% end %>

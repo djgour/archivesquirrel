@@ -1,0 +1,9 @@
+<% if projects.any? %>
+  <ul>
+      <% projects.each do |project| %>
+        <li><%= formatted_project_link project %></li>
+      <% end %>
+  </ul>
+<% else %>
+  <p>No projects yet.</p>
+<% end %>
