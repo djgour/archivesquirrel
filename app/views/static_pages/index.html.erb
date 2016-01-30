@@ -1,1 +1,7 @@
 <h1>Archivesquirrel</h1>
+<% if current_user %>
+  <h2>Your Projects</h2>
+  <%= render partial: 'projects/user_index', 
+                      locals: { projects: current_user.projects } %>
+  <%= link_to 'Create Project', new_project_path %>
+<% end %>

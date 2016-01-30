@@ -27,5 +27,7 @@ it "doesn't save the user if it's invalid" do
   expect { click_button 'Create Account' }.not_to change(User, :count)
 end
 
+it "doesn't let you create a user if you're already signed in"
+
 
 end

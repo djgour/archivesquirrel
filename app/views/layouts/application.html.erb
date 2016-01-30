@@ -8,8 +8,9 @@
 </head>
 <body>
   <header>
+  <%= link_to 'Home', root_path %> | 
     <% if current_user %>
-      <%= link_to formatted_user_profile_link current_user %>
+      <%= formatted_user_profile_link current_user %>
       <%= link_to 'Log Out', logout_path, method: :delete %>
     <% else %>
       <%= link_to 'Register', register_path %>

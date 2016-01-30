@@ -23,5 +23,5 @@ def project_attributes(overrides = {})
   {
     name: "Example Project",
     description: "An example project created in ArchiveSquirrel"
-  }
+  }.merge(overrides)
 end

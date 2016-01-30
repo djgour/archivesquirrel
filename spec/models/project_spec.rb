@@ -21,5 +21,11 @@ describe "a Project" do
     project.valid?
     expect(project.errors[:description].any?).to eq(true)
   end
+  
+  it "must have a valid owner" do
+    project = Project.new(user_id: nil)
+    project.valid?
+    expect(project.errors[:owner].any?).to eq(true)
+  end
 
 end
