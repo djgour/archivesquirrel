@@ -1,0 +1,11 @@
+<h2>Invitations You Have Given</h2>
+<ol>
+  <% current_user.given_invitations.each do |invite| %>
+    <li>You have invited <%= formatted_user_profile_link invite.invitee %>
+      to <%= link_to invite.project.name, project_path(invite.project) %>.
+      <%= button_to 'Cancel Invitation', cancel_invite_path,
+                               method: :delete,
+                               params: { invite_id: invite.id }%>
+    </li>
+  <% end %>
+</ol>

@@ -18,6 +18,16 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user?
+  
+  def find_user_by_login_or_email(login_or_email)
+    if login_or_email =~ /@/
+      User.find_by(email: login_or_email)
+    else
+      User.find_by(login: login_or_email)
+    end
+  end
+  
+  helper_method :find_user_by_login_or_email
 
   def require_login
     unless current_user

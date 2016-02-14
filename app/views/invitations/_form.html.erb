@@ -1,0 +1,14 @@
+<%= form_tag internal_invite_path do %>
+  <fieldset>
+    <ul>
+      <li>
+        <%= label_tag :login_or_email %>
+        <%= text_field_tag :invitee_name, nil %>
+      </li>
+        <%= hidden_field_tag :project, project_id %>
+    </ul>
+    <p>
+      <%= submit_tag 'Invite' %>
+    </p>
+  </fieldset>
+<% end %>

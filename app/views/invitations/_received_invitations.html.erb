@@ -1,0 +1,15 @@
+<h2>Pending Invitations</h2>
+  <ol>
+    <% current_user.received_invitations.each do |invite| %>
+      <li>
+        <%= formatted_user_profile_link invite.inviter %>
+        has invited you to the project
+        <%= link_to invite.project.name, project_path(invite.project) %>.
+        <%= button_to 'Accept', accept_internal_invite_path, 
+                                params: { invite_id: invite.id } %>
+        <%= button_to 'Decline', decline_invite_path,
+                                 method: :delete,
+                                 params: { invite_id: invite.id }%>
+      </li>
+    <% end %>
+  </ol>

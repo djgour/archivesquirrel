@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921001240) do
+ActiveRecord::Schema.define(version: 20160131161332) do
+
+  create_table "invitations", force: true do |t|
+    t.integer  "invitee_id"
+    t.integer  "inviter_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["invitee_id"], name: "index_invitations_on_invitee_id"
+  add_index "invitations", ["inviter_id"], name: "index_invitations_on_inviter_id"
+  add_index "invitations", ["project_id"], name: "index_invitations_on_project_id"
 
   create_table "items", force: true do |t|
     t.string   "name"
@@ -23,6 +35,16 @@ ActiveRecord::Schema.define(version: 20150921001240) do
   end
 
   add_index "items", ["project_id"], name: "index_items_on_project_id"
+
+  create_table "participates", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "participates", ["project_id"], name: "index_participates_on_project_id"
+  add_index "participates", ["user_id"], name: "index_participates_on_user_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"

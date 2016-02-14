@@ -96,4 +96,13 @@ describe "a user" do
     user = User.new(password: "password")
     expect(user.password_digest.present?).to eq(true)
   end
+  
+  it "can participate in projects created by other users" do
+    user1 = User.new(user_attributes)
+    user2 = User.new(user_attributes(login: "user2", 
+                                     email: "user2@example.com"))
+    project = Project.new(project_attributes(owner: user2))
+    project.participates.new(user: user1)
+    expect(project.participants).to include(user1)
+  end
 end

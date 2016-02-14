@@ -27,5 +27,14 @@ describe "a Project" do
     project.valid?
     expect(project.errors[:owner].any?).to eq(true)
   end
+  
+  it "can have participants besides the owner" do
+    user1 = User.new(user_attributes)
+    user2 = User.new(user_attributes(login: "user2",
+                                     email: "user2@example.com"))
+    project = Project.new(project_attributes(owner: user1))
+    user2.participates.new(project: project)
+    expect(user2.participations).to include(project)
+  end
 
 end
