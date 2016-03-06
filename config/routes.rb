@@ -2,9 +2,12 @@ Rails.application.routes.draw do
 
   root 'static_pages#index'
 
-  resources :projects
+  resources :projects do
+     resources :items
+  end
+  
   resources :users
-  resources :items
+ 
   
 
   get    'login'   => 'sessions#new'

@@ -8,13 +8,13 @@ describe "An item" do
   end
 
   it "belongs to a project" do
-    item = @project.items.new(item_attributes)
+    item = @project.items.new(item_attributes(user: @user))
 
     expect(item.project).to eq(@project)
   end
 
   it "requires a project" do
-    item = Item.new(item_attributes)
+    item = Item.new(item_attributes(user: @user))
 
     item.valid?
 
@@ -28,13 +28,13 @@ describe "An item" do
 
     expect(item.errors[:name].any?).to eq(true)
   end
-
-  it "requires a level" do
-    item = @project.items.new(item_attributes(level: ""))
-
+  
+  it "requires a creator" do
+    item = @project.items.new(item_attributes)
+    
     item.valid?
-
-    expect(item.errors[:level].any?).to eq(true)
+    
+    expect(item.errors[:user].any?).to eq(true)
   end
 
 end
