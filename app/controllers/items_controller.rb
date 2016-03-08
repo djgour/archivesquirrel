@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   
   def show
     @item = Item.find(params[:id])
+    @project = @item.project
   end
   
   def new
@@ -26,6 +27,32 @@ class ItemsController < ApplicationController
                    notice: "Item successfully added!"
     else
       render :new
+    end
+  end
+  
+  def edit
+    @item = Item.find(params[:id])
+    @project = @item.project
+  end
+  
+  def update
+    @item = Item.find(params[:id])
+    @project = @item.project
+    if @item.update(item_params)
+      redirect_to project_item_path(@project, @item), notice: "Changes saved."
+    else
+      render :edit
+    end
+  end
+  
+  def destroy
+    @item = Item.find(params[:id])
+    @project = @item.project
+    if @item.deletable_by?(current_user)
+      @item.destroy
+      redirect_to project_path(@project)
+    else
+      redirect_to :back, notice: "You are not authorized to do this."
     end
   end
   

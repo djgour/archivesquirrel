@@ -6,5 +6,7 @@ describe ItemsController do
     
     it "doesn't let them create items"
     
+    it "doesn't let them edit items"
+    
   end
 end
