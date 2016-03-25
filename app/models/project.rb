@@ -5,6 +5,8 @@ class Project < ActiveRecord::Base
   has_many :participates, dependent: :destroy
   has_many :participants, through: :participates, source: :user
   has_many :items
+  has_many :top_level_relationships, dependent: :destroy
+  has_many :top_level_items, through: :top_level_relationships, source: :item
   validates :name, presence: true
   validates :description, presence: true
   validates :owner, presence: true

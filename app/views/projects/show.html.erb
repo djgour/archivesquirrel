@@ -5,7 +5,7 @@
 <% if @project.project_member?(current_user) %>
   <h3>Items</h3>
   <ol>
-    <% @project.items.each do |item| %>
+    <% @project.top_level_items.each do |item| %>
       <li><%= link_to item.name, 
                       project_item_path(@project, item) %></li>
     <% end %>

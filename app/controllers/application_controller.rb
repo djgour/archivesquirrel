@@ -43,8 +43,8 @@ class ApplicationController < ActionController::Base
   end
   
   def require_project_member
-    project = Project.find(params[:project_id])
-    unless project.project_member?(current_user)
+    @project = Project.find(params[:project_id])
+    unless @project.project_member?(current_user)
       redirect_to root_url, notice: "You are not authorized to do this."
     end
   end

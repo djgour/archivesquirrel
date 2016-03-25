@@ -1,43 +1,52 @@
 class ItemsController < ApplicationController
 
+  # This before filter also defines @project for the use of each method.
   before_action :require_project_member
   
   def show
     @item = Item.find(params[:id])
-    @project = @item.project
   end
   
   def new
-    @project = Project.find(params[:project_id])
     @item = @project.items.new
   end
   
+  def new_child
+    @parent = Item.find(params[:id])
+    @item = @project.items.new
+    render :new
+  end
+  
   def create
-    @project = Project.find_by(id: params[:project])
-    unless @project && @project.project_member?(current_user)
-      redirect_to root, notice: "You are not authorized 
-                                 to take this action."
-      return
-    end
+    
+    # This looks very messy and should be cleaned up, but right now I just
+    # want my tests to pass.
+    
     @item = @project.items.new(item_params)
     @item.project = @project
     @item.user = current_user
+    @parent = @project.items.find_by(id: params[:parent]) if params[:parent]
     if @item.save
+      if @parent
+        ItemRelationship.create!(parent: @parent, child: @item) 
+      else
+        TopLevelRelationship.create!(project: @project, 
+                                     item: @item, 
+                                     relationship: params[:top_level])
+      end
       redirect_to project_item_path(@project, @item),
-                   notice: "Item successfully added!"
+                 notice: "Item successfully added!"
     else
       render :new
-    end
+    end 
   end
   
   def edit
     @item = Item.find(params[:id])
-    @project = @item.project
   end
   
   def update
     @item = Item.find(params[:id])
-    @project = @item.project
     if @item.update(item_params)
       redirect_to project_item_path(@project, @item), notice: "Changes saved."
     else
@@ -47,7 +56,6 @@ class ItemsController < ApplicationController
   
   def destroy
     @item = Item.find(params[:id])
-    @project = @item.project
     if @item.deletable_by?(current_user)
       @item.destroy
       redirect_to project_path(@project)

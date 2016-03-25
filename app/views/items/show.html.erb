@@ -1,14 +1,39 @@
-<h2><%= "#{@item.level.titleize}: #{@item.name}" %></h2>
+<% if @item.level.blank? %>
+  <h2><%= "#{@item.name}" %>
+<% else %>
+  <h2><%= "#{@item.level.titleize}: #{@item.name}" %></h2>
+<% end %>
 
 <h3>Description</h3>
 <p><%= @item.description %></p>
 <p>Added by <%= formatted_user_profile_link(@item.user) %>.</p>
+
+<% if @item.children.any? %>
+  <h3>Contains:</h3>
+  <ul>
+    <% @item.children.each do |child| %>
+      <li><%= link_to child.name, project_item_path(@project, child) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @item.parents.any? %>
+  <h3>Belongs to:</h3>
+  <ul>
+    <% @item.parents.each do |parent| %>
+      <li><%= link_to parent.name, project_item_path(@project, parent) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <% if @project.project_member?(current_user) %>
   <%= link_to 'Edit', edit_project_item_path(@item.project, @item) %>
+  <%= link_to 'Add Item', new_child_path(@item.project, @item) %>
 <% end %>
 <% if @item.deletable_by? (current_user) %>
   <%= link_to 'Delete', project_item_path(@project, @item), 
                         method: :delete,
                         data: { confirm: "Are you sure?" }%>
 <% end %>
+
 

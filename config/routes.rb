@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   
   resources :users
  
-  
 
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
@@ -19,6 +18,6 @@ Rails.application.routes.draw do
   delete 'cancel_invite' => 'invitations#cancel'
   post   'accept_internal_invite' => 'participates#create'
   delete 'decline_invite' => 'invitations#decline'
-
   get "register" => "users#new"
+  get "/projects/:project_id/items/:id/new" => "items#new_child", as: :new_child
 end

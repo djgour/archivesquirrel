@@ -11,6 +11,9 @@ describe "Viewing an item" do
     @project.participates.create!(user: @project_member) 
     @item = Item.create!(item_attributes(project: @project,
                                          user: @project_member)) 
+    TopLevelRelationship.create!(project: @project,
+                                 item: @item,
+                                 relationship: "default" )
   end
   
   context "when you own the item's project" do

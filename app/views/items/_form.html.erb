@@ -16,8 +16,15 @@
       </li>
     </ol>
     <%= hidden_field_tag :project, @project.id %>
+    <% if @parent %>
+      <%= hidden_field_tag :parent, @parent.id %>
+    <% else %>
+      <%= hidden_field_tag :top_level, "default" %>
+    <% end %>
     <p>
-      <% if @item.new_record? %>
+      <% if @item.new_record? && @parent %>
+        <%= f.submit "Add Item" %>
+      <% elsif @item.new_record? %>
         <%= f.submit "Create Item" %>
       <% else %>
         <%= f.submit 'Save Changes' %> | <%= link_to 'Cancel', @project %>

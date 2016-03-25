@@ -12,4 +12,7 @@ describe "Deleting an item" do
   
   it "shouldn't be done by a member that isn't a creator or admin"
   
+  context "when the item is an aggregation" do
+    it "should prompt you whether to delete child items"
+  end
 end
