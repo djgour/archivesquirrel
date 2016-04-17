@@ -1,26 +1,48 @@
-<h2><%= "#{@project.name}" %></h2>
-<p>Owned by <%= formatted_user_profile_link @project.owner %></p>
-<h3>Description</h3>
-<p><%= "#{@project.description}" %></p>
-<% if @project.project_member?(current_user) %>
-  <h3>Items</h3>
-  <ol>
-    <% @project.top_level_items.each do |item| %>
-      <li><%= link_to item.name, 
-                      project_item_path(@project, item) %></li>
-    <% end %>
-    <%= link_to 'Add Item', new_project_item_path(@project) %>
-  </ol>
-  
-  <h3>Members</h3>
-  <ol>
-    <% @project.participants.each do |participant| %>
-      <li><%= formatted_user_profile_link participant %></li>
-    <% end %>
-  </ol>
-  <% if @project.project_admin?(current_user) %>
-    <h4>Add Participants</h4>
-    <%= render partial: 'invitations/form', 
-               locals: { project_id: @project.id } %>
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="project-title"><%= "#{@project.name}" %></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Description</h3>
+    <p><%= "#{@project.description}" %></p>
+  </div>
+  <% if @project.project_member?(current_user) %>
+  <div class="col-md-6">
+      <h3>Items</h3>
+      <ul class="list-unstyled">
+        <% @project.top_level_items.each do |item| %>
+          <li><%= link_to item.name, 
+                          project_item_path(@project, item) %></li>
+        <% end %>
+      </ul>
+      <%= link_to 'Add Item', new_project_item_path(@project),
+                              class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="row"> 
+    <div class="col-md-6">
+      <h3>Members</h3>
+        <ul class="list-unstyled">
+          <li><%= formatted_user_profile_link @project.owner %> (Owner)</li>
+          <% @project.participants.each do |participant| %>
+            <li><%= formatted_user_profile_link participant %></li>
+          <% end %>
+        </ul>
+        <% if @project.project_admin?(current_user) %>
+          <h4>Add Participants<br/><small>(by login or email)</small></h4>
+          <%= render partial: 'invitations/form', 
+                     locals: { project_id: @project.id } %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Owned by</h4>
+        <p><%= formatted_user_profile_link @project.owner %></p>
+      </div>
+    </div>
   <% end %>
-<% end %>

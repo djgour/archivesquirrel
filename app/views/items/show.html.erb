@@ -1,39 +1,68 @@
-<% if @item.level.blank? %>
-  <h2><%= "#{@item.name}" %>
-<% else %>
-  <h2><%= "#{@item.level.titleize}: #{@item.name}" %></h2>
-<% end %>
-
-<h3>Description</h3>
-<p><%= @item.description %></p>
-<p>Added by <%= formatted_user_profile_link(@item.user) %>.</p>
-
-<% if @item.children.any? %>
-  <h3>Contains:</h3>
-  <ul>
-    <% @item.children.each do |child| %>
-      <li><%= link_to child.name, project_item_path(@project, child) %></li>
+<div class="row">
+  <div class="col-md-12">
+    <h5><%= link_to @project.name, project_path(@project) %></h5>
+    <h1 class="item-title">
+    <% if @item.level.blank? %>
+      <%= "#{@item.name}" %>
+    <% else %>
+      <%= "#{@item.level.titleize}: #{@item.name}" %>
     <% end %>
-  </ul>
-<% end %>
+    </h1>
+  </div>
+</div>
 
-<% if @item.parents.any? %>
-  <h3>Belongs to:</h3>
-  <ul>
-    <% @item.parents.each do |parent| %>
-      <li><%= link_to parent.name, project_item_path(@project, parent) %></li>
+<div class="row">
+  
+  <div class="col-md-2">
+    <% if @item.parents.any? %>
+      <h5>Belongs to</h5>
+        <% @item.parents.each do |parent| %>
+          <p><%= link_to parent.name, project_item_path(@project, parent) %></p>
+        <% end %>
     <% end %>
-  </ul>
-<% end %>
+  </div>
+  
+  <div class="col-md-10">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h5>Description</h5>
+        <p><%= @item.description %></p>
+          <% if @project.project_member?(current_user) %>
+          <p><%= link_to 'Edit', edit_project_item_path(@item.project, @item),
+                                 class: "btn btn-default" %></p>
+          <% end %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <% if @item.children.any? %>
+          <h4>Contains</h4>
+            <ul>
+            <% @item.children.each do |child| %>
+              <li><%= link_to child.name, project_item_path(@project, child) %></li>
+            <% end %>
+            </ul>
+        <% end %>
+        <% if @project.project_member?(current_user) %>
+          <%= link_to 'Add Item', new_child_path(@item.project, @item), 
+                                  class: "btn btn-default" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
 
-<% if @project.project_member?(current_user) %>
-  <%= link_to 'Edit', edit_project_item_path(@item.project, @item) %>
-  <%= link_to 'Add Item', new_child_path(@item.project, @item) %>
-<% end %>
-<% if @item.deletable_by? (current_user) %>
-  <%= link_to 'Delete', project_item_path(@project, @item), 
-                        method: :delete,
-                        data: { confirm: "Are you sure?" }%>
-<% end %>
 
-
+    <p>Added by <%= formatted_user_profile_link(@item.user) %>.</p>
+    <p><% if @item.deletable_by? (current_user) %>
+      <%= link_to 'Delete', project_item_path(@project, @item), 
+                            method: :delete,
+                            data: { confirm: "Are you sure?" },
+                            class: "btn btn-xs btn-danger" %></p>
+    <% end %>
+  </div>
+</div>

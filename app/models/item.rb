@@ -28,4 +28,8 @@ class Item < ActiveRecord::Base
     self.project.project_admin?(user)
   end
   
+  def top_level?
+    self.top_level_relationships.any?
+  end
+  
 end

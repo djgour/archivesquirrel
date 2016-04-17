@@ -1,26 +1,26 @@
-<%= form_for @project do |f| %>
+<%= form_for @project, class: "form-inline" do |f| %>
   <%= render 'shared/errors', object: @project %>
   <fieldset>
-    <ol>
       <% if @project.new_record? %>
-        <li>
+        <div class="form-group">
           <%= f.label "Project Name" %><br/>
           <%= f.text_field :name, size: 40, autofocus: true %>
-        </li>
+        </div>
       <% end %>
-      <li>
+      <div class="form-group">
         <%= f.label "Description" %><br/>
         <%= f.text_area :description, cols: 40, rows: 7 %>
-      </li>
-    </ol>
+      </div>
     <p>
       This is where the "Invite participants" section will go.
     </p>
     <p>
       <% if @project.new_record? %>
-        <%= f.submit "Create Project" %>
+        <%= f.submit "Create Project", class: "btn btn-success" %>
+        <%= link_to 'Cancel', root_path, class: "btn btn-danger" %>
       <% else %>
-        <%= f.submit 'Save Changes' %> | <%= link_to 'Cancel', @project %>
+        <%= f.submit 'Save Changes', class: "btn btn-primary" %>
+        <%= link_to 'Cancel', @project, class: "btn btn-danger" %>
       <% end %>
     </p>
   </fieldset>

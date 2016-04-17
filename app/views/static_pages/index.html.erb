@@ -1,13 +1,21 @@
-<h1>Archivesquirrel</h1>
 <% if current_user %>
-  <% if current_user.has_received_invitations? %>
-    <%= render 'invitations/received_invitations' %>
-  <% end %>
-  <% if current_user.has_given_invitations? %>
-    <%= render 'invitations/given_invitations' %>
-  <% end %>
-  <h2>Your Projects</h2>
-  <%= render partial: 'projects/user_index', 
-                      locals: { projects: current_user.all_projects } %>
-  <%= link_to 'Create Project', new_project_path %>
+  <div class="row">
+    <div class="col-md-4">
+      <h1>Your Projects</h1>
+      <%= render partial: 'projects/user_index', 
+                          locals: { projects: current_user.all_projects } %>
+      <%= link_to 'Create Project', new_project_path, class: "btn btn-primary" %>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <% if current_user.has_received_invitations? %>
+        <%= render 'invitations/received_invitations' %>
+      <% end %>
+      <% if current_user.has_given_invitations? %>
+        <%= render 'invitations/given_invitations' %>
+      <% end %>
+    </div>    
+  </div>
+<% else %>
+  <h1>Welcome to ArchiveSQuirreL</h1>
 <% end %>

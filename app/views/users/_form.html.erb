@@ -1,40 +1,40 @@
-<%= form_for @user do |f| %>
+<%= form_for @user, class: "form-inline" do |f| %>
   <%= render "shared/errors", object: @user %>
   <fieldset>
-    <ol>
       <% if @user.new_record? %>
-        <li>
+        <div class="form-group">
           <%= f.label "Username (login)" %><br/>
           <%= f.text_field :login, size: 40, autofocus: true %>
-        </li>
+        </div>
       <% end %>
-      <li>
+      <div class="form-group">
         <%= f.label "E-mail" %><br/>
         <%= f.text_field :email, size: 40 %>
-      </li>
-      <li>
+      </div>
+      <div class="form-group">
         <%= f.label "Password" %><br/>
         <%= f.password_field :password, size: 40 %>
-      </li>
-      <li>
-        <%= f.label "Confirm password" %></li>
+      </div>
+      <div class="form-group">
+        <%= f.label "Confirm password" %><br/>
         <%= f.password_field :password_confirmation, size: 40 %>
-      </li>
+      </div>
       <h4>Optional</h4>
-      <li>
+      <div class="form-group">
         <%= f.label :name %><br/>
         <%= f.text_field :name, size: 40 %>
-      </li>
-      <li>
+      </div>
+      <div class="form-group">
         <%= f.label "Bio" %><br/>
         <%= f.text_area :description, cols: 40, rows: 7 %>
-      </li>
-    </ol>
+      </div>
     <p>
       <% if @user.new_record? %>
-        <%= f.submit 'Create Account' %>
+        <%= f.submit 'Create Account', class: "btn btn-success" %>
+        <%= link_to 'Cancel', root_path, class: "btn btn-danger" %>
       <% else %>
-        <%= f.submit 'Save Changes' %> | <%= link_to 'Cancel', @user %>
+        <%= f.submit 'Save Changes', class: "btn btn-primary" %>
+        <%= link_to 'Cancel', @user, class: "btn btn-danger" %>
       <% end %>
     </p>
   </fieldset>

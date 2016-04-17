@@ -1,15 +1,25 @@
-<h2>Pending Invitations</h2>
-  <ol>
-    <% current_user.received_invitations.each do |invite| %>
-      <li>
-        <%= formatted_user_profile_link invite.inviter %>
-        has invited you to the project
-        <%= link_to invite.project.name, project_path(invite.project) %>.
-        <%= button_to 'Accept', accept_internal_invite_path, 
-                                params: { invite_id: invite.id } %>
-        <%= button_to 'Decline', decline_invite_path,
-                                 method: :delete,
-                                 params: { invite_id: invite.id }%>
-      </li>
-    <% end %>
-  </ol>
+<h4>Pending Invitations</h4>
+    <table class="table table-hover">
+      <% current_user.received_invitations.each do |invite| %>
+        <tr><td>
+            <%= formatted_user_profile_link invite.inviter %>
+            has invited you to the project
+            <%= link_to invite.project.name, project_path(invite.project) %>.
+            <p>
+              <div class="notification-button">
+                <%= button_to 'Accept', accept_internal_invite_path, 
+                                        params: { invite_id: invite.id },
+                                        class: "btn btn-success btn-sm" %>
+              </div>
+              <div class="notification-button">
+                <%= button_to 'Decline', decline_invite_path,
+                                         method: :delete,
+                                         params: { invite_id: invite.id }, 
+                                         class: "btn btn-danger btn-sm" %>
+              </div>
+              <div style="clear:both">
+              </div>
+            </p>
+          </td></tr>
+      <% end %>
+    </table>

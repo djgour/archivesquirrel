@@ -1,9 +1,9 @@
 <% if projects.any? %>
-  <ul>
+  <table class="table table-hover">
       <% projects.each do |project| %>
-        <li><%= formatted_project_link project %></li>
+        <tr><td><%= formatted_project_link project %></td></tr>
       <% end %>
-  </ul>
+  </table>
 <% else %>
   <p>No projects yet.</p>
 <% end %>
